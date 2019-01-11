@@ -27,10 +27,11 @@ try {
 
 在Exceptions\Handler.php的render加入代码
 ```
-$ding = Alarm::driver('ding');
-try {
-    dd($a);
-} catch (\Exception $e) {
-    dd($ding->setException($e)->setIp('127.0.0.1')->setRemark('备注')->run());
+public function render($request, Exception $exception)
+{
+    $ding = \Hangjw\Alarm\Alarm::driver('ding');
+    $ding->setException($exception)->setRemark('测试备注')->run();
+
+    return parent::render($request, $exception);
 }
 ```

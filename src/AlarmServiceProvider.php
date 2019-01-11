@@ -2,6 +2,7 @@
 
 namespace Hangjw\Alarm;
 
+use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
 
 class AlarmServiceProvider extends ServiceProvider
@@ -29,7 +30,7 @@ class AlarmServiceProvider extends ServiceProvider
     {
         //
         $this->app->singleton(AlarmManager::class, function ($app) {
-            return new AlarmManager($app->make('config'), $app->make('request'));
+            return new AlarmManager($app->make('config'), $app->make('request'), new Client());
         });
     }
 

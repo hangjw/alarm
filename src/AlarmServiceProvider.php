@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 
 class AlarmServiceProvider extends ServiceProvider
 {
+
     /**
      * Bootstrap services.
      *
@@ -28,8 +29,8 @@ class AlarmServiceProvider extends ServiceProvider
     {
         //
         $this->app->singleton(AlarmManager::class, function ($app) {
-
             return new AlarmManager($app->make('config'), $app->make('request'));
         });
     }
+
 }

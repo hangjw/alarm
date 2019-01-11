@@ -26,7 +26,8 @@ class DingProvider extends AbstractProvider implements ProviderInterface
             . ($this->remark ? ("> 备注: $this->remark") : '');
         $url = $this->path . '?access_token=' . $this->config['token'];
         $this->request->post($url, [
-            'body' => json_encode($this->markdown($this->title, $message))
+            'body' => json_encode($this->markdown($this->title, $message)),
+            'timeout' => 3,
         ]);
 
         return true;

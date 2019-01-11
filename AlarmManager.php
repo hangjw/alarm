@@ -33,6 +33,9 @@ class AlarmManager
             $this->drivers[$driver] = $this->createDriver($driver);
         }
 
+        if ($this->drivers[$driver]) {
+            $this->drivers[$driver]->setTitle($this->config->get('alarm.title'));
+        }
         return $this->drivers[$driver];
     }
 
@@ -41,7 +44,7 @@ class AlarmManager
         if (isset($this->initialDrivers[$driver])) {
             $provider = $this->initialDrivers[$driver];
             $provider = __NAMESPACE__ . '\\Providers\\' . $provider . 'Provider';
-            return $this->buildProvider($provider, $this->config->get($driver));
+            return $this->buildProvider($provider, $this->config->get('alarm.' . $driver));
         }
         if (isset($this->customCreators[$driver])) {
             return $this->callCustomCreator($driver);

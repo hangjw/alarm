@@ -3,6 +3,7 @@
 
 namespace Hangjw\Alarm\Providers;
 
+use function GuzzleHttp\Promise\all;
 use Hangjw\Alarm\ProviderInterface;
 
 /**
@@ -19,7 +20,7 @@ class DingProvider extends AbstractProvider implements ProviderInterface
 
     public function run()
     {
-        $all_message = "## {$this->title}\n\n"
+        $message = "## {$this->title}\n\n"
             . ($this->ip ? ("> 客户端ip: $this->ip \n\n") : '')
             . ($this->file ? ("> 文件: $this->file \n\n") : '')
             . ($this->line ? ("> 行号: $this->line \n\n") : '')
@@ -27,7 +28,7 @@ class DingProvider extends AbstractProvider implements ProviderInterface
             . ($this->remark ? ("> 备注: $this->remark") : '');
         $url = $this->path . '?access_token=' . $this->config['token'];
         $this->request->post($url, [
-            'body' => json_encode($this->markdown($this->title, $all_message))
+            'body' => json_encode($this->markdown($this->title, $message))
         ]);
 
         return true;

@@ -83,6 +83,12 @@ abstract class AbstractProvider implements ProviderInterface
         return $this;
     }
 
+    public function setTitle($title)
+    {
+        $this->title = $title;
+        return $this;
+    }
+
     public function setException(\Exception $e)
     {
         $this->setCode($e->getCode());

@@ -1,0 +1,11 @@
+{
+  "name": "hangjw/alarm",
+  "description": "ding alarm for exception",
+  "authors": [
+    {
+      "name": "Hangjw",
+      "email": "872208946@qq.com"
+    }
+  ],
+  "require": {}
+}

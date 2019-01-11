@@ -1,0 +1,86 @@
+<?php
+
+namespace Hangjw\Alarm;
+
+use Illuminate\Config\Repository;
+use Symfony\Component\HttpFoundation\Request;
+
+class AlarmManager
+{
+
+    protected $config;
+
+    protected $request;
+
+    protected $drivers;
+
+    protected $customCreators;
+
+    protected $initialDrivers = [
+        'ding' => 'Ding',
+    ];
+
+    public function __construct(Repository $config, Request $request = null)
+    {
+        $this->config = $config;
+        $this->request = $request;
+    }
+
+
+    public function driver($driver)
+    {
+        if (!isset($this->drivers[$driver])) {
+            $this->drivers[$driver] = $this->createDriver($driver);
+        }
+
+        return $this->drivers[$driver];
+    }
+
+    protected function createDriver($driver)
+    {
+        if (isset($this->initialDrivers[$driver])) {
+            $provider = $this->initialDrivers[$driver];
+            $provider = __NAMESPACE__ . '\\Providers\\' . $provider . 'Provider';
+            return $this->buildProvider($provider, $this->config->get($driver));
+        }
+        if (isset($this->customCreators[$driver])) {
+            return $this->callCustomCreator($driver);
+        }
+
+        throw new \InvalidArgumentException("Driver [$driver] not supported.");
+    }
+
+    protected function callCustomCreator($driver)
+    {
+        return $this->customCreators[$driver]($this->config);
+    }
+
+
+    public function getDrivers()
+    {
+        return $this->drivers;
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Request
+     */
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    public function buildProvider($provider, $config)
+    {
+        return new $provider(
+            $this->getRequest(),
+            $config
+        );
+    }
+
+    public function extend($driver, \Closure $callback)
+    {
+        $this->customCreators[$driver] = $callback;
+
+        return $this;
+    }
+}

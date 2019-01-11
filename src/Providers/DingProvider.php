@@ -14,9 +14,7 @@ use Hangjw\Alarm\ProviderInterface;
 class DingProvider extends AbstractProvider implements ProviderInterface
 {
 
-//    protected $path = 'https://oapi.dingtalk.com/robot/send';
-
-    protected $path = 'http://www.co.com/xcx/test';
+    protected $path = 'https://oapi.dingtalk.com/robot/send';
 
     public function run()
     {

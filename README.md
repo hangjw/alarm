@@ -10,7 +10,7 @@ composer require hangjw/alarm
 
 二、获取配置并修改
 ```
-php artisan vendor:publish --provider="Hangjw/Alarm/AlarmServiceProvider"
+php artisan vendor:publish
 ```
 
 三、使用
@@ -25,13 +25,12 @@ try {
 
 四、在laravel中配置
 
-在Exceptions\Handler.php的render加入代码
+在Exceptions\Handler.php的report加入代码
 ```
-public function render($request, Exception $exception)
+public function report($request, Exception $exception)
 {
     $ding = \Hangjw\Alarm\Alarm::driver('ding');
     $ding->setException($exception)->setRemark('测试备注')->run();
-
-    return parent::render($request, $exception);
+    parent::report($exception);
 }
 ```

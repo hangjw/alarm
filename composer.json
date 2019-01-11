@@ -1,11 +1,27 @@
 {
   "name": "hangjw/alarm",
   "description": "ding alarm for exception",
+  "keywords": ["ding", "alarm", "laravel"],
   "authors": [
     {
       "name": "Hangjw",
       "email": "872208946@qq.com"
     }
   ],
-  "require": {}
+  "require": {
+    "php": "^7.1.3",
+    "illuminate/container": "5.7.*",
+    "illuminate/contracts": "5.7.*",
+    "illuminate/support": "5.7.*"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Hanjw\\Alarm\\AlarmServiceProvider"
+      ],
+      "aliases": {
+        "Socialite": "Hanjw\\Alarm\\Alarm"
+      }
+    }
+  }
 }

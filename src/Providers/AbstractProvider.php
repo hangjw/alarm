@@ -3,6 +3,7 @@
 
 namespace Hangjw\Alarm\Providers;
 
+use GuzzleHttp\Client;
 use Hangjw\Alarm\ProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -32,8 +33,11 @@ abstract class AbstractProvider implements ProviderInterface
 
     protected $request;
 
-    public function __construct(Request $request, $config = [])
+    protected $client;
+
+    public function __construct(Request $request, Client $client, $config = [])
     {
+        $this->client = $client;
         $this->request = $request;
         $this->config = $config;
         $this->setTime(date('Y-m-d H:i:s'));

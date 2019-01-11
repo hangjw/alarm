@@ -2,6 +2,7 @@
 
 namespace Hangjw\Alarm;
 
+use GuzzleHttp\Client;
 use Illuminate\Config\Repository;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -16,12 +17,15 @@ class AlarmManager
 
     protected $customCreators;
 
+    protected $client;
+
     protected $initialDrivers = [
         'ding' => 'Ding',
     ];
 
-    public function __construct(Repository $config, Request $request = null)
+    public function __construct(Repository $config, Request $request = null, Client $client)
     {
+        $this->client = $client;
         $this->config = $config;
         $this->request = $request;
     }
@@ -72,10 +76,16 @@ class AlarmManager
         return $this->request;
     }
 
+    public function getClient()
+    {
+        return $this->client;
+    }
+
     public function buildProvider($provider, $config)
     {
         return new $provider(
             $this->getRequest(),
+            $this->getClient(),
             $config
         );
     }

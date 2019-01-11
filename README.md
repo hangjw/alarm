@@ -21,3 +21,16 @@ try {
     dd($ding->setException($e)->setIp('127.0.0.1')->setRemark('备注')->run());
 }
 ```
+
+
+四、在laravel中配置
+
+在Exceptions\Handler.php的render加入代码
+```
+$ding = Alarm::driver('ding');
+try {
+    dd($a);
+} catch (\Exception $e) {
+    dd($ding->setException($e)->setIp('127.0.0.1')->setRemark('备注')->run());
+}
+```

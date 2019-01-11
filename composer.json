@@ -17,10 +17,10 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Hanjw\\Alarm\\AlarmServiceProvider"
+        "Hangjw\\Alarm\\AlarmServiceProvider"
       ],
       "aliases": {
-        "Socialite": "Hanjw\\Alarm\\Alarm"
+        "Socialite": "Hangjw\\Alarm\\Alarm"
       }
     }
   }
